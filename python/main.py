@@ -1,3 +1,3 @@
 import api
 
-api.consomeAPI('boituva')
+inputcidade = 'boituva'
