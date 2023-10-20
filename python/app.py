@@ -30,7 +30,7 @@ class app():
         self.widget2.pack()
         self.labelCidade = Label(self.widget2,text=api.nomeCidade,font=('Arial',14))
         self.labelCidade.pack(pady=20)
-        self.labelTemperatura = Label(self.widget2,text='Temperatura')
+        self.labelTemperatura = Label(self.widget2,text=api.temperaturaAtual)
         self.labelTemperatura.pack(side=BOTTOM,pady=10)
         
         
@@ -38,18 +38,18 @@ class app():
         
         self.widget3 = Frame(master)
         self.widget3.pack()
-        self.labelCondicao = Label(self.widget3,text='Condição climatica')
+        self.labelCondicao = Label(self.widget3,text=api.clima)
         self.labelCondicao.pack(side=LEFT,pady=10)
-        self.labelIconCondicao = Label(self.widget3,text='Icon')
+        self.labelIconCondicao = Label(self.widget3,text=api.iconeTemperatura)
         self.labelIconCondicao.pack(side=RIGHT,pady=10)
         
         #Quarto container (Informações adicionais (umidade/sensação termica))
         
         self.widget4 = Frame(master)
         self.widget4.pack()
-        self.labelUmidade = Label(self.widget4,text='Umidade')
+        self.labelUmidade = Label(self.widget4,text=api.umidade)
         self.labelUmidade.pack(side=LEFT,padx=20,pady=10)
-        self.labelSensacao = Label(self.widget4,text='Sensação térmica')
+        self.labelSensacao = Label(self.widget4,text=api.sensacaoTermica)
         self.labelSensacao.pack(side=RIGHT,padx= 20,pady=10)
         
         
