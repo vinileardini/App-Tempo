@@ -16,18 +16,18 @@ nomeCidade = info['name']
 pais = info['sys']['country']
 umidade = info['main']['humidity']
 temperaturaAtual = info['main']['temp']-273
-sensacaoTermica = info['main']['feels_like']
+sensacaoTermica = info['main']['feels_like']-273
 clima =  info['weather'][0]['description']
-iconeTemperatura = info['weather'][0]['icon']
+valorIconeTemperatura = info['weather'][0]['icon']
 
-'''
-urlIconeTemperatura = f'https://openweathermap.org/img/wn/{valorIconeTemperatura}@1x.png'
+# Modificações para uso do ícone da temperatura
+urlIconeTemperatura = f'https://openweathermap.org/img/wn/{valorIconeTemperatura}.png'
 abreImagem = urlopen(urlIconeTemperatura)
 rawImagem = abreImagem.read()
 abreImagem.close()
 
-iconeTemperatura = ImageTk.PhotoImage(data=rawImagem)
-'''
+iconeTemperatura = rawImagem
+
 
 
 

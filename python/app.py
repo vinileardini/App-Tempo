@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import Image
+import tkinter as tk
 
 import api
 
@@ -27,10 +28,8 @@ class app():
         self.widget2.pack()
         self.labelCidade = Label(self.widget2,text=api.nomeCidade,font=('Arial',14))
         self.labelCidade.pack(pady=20)
-        self.labelTemperatura = Label(self.widget2,text=round(api.temperaturaAtual,1))
+        self.labelTemperatura = Label(self.widget2,text=(round(api.temperaturaAtual,1),'°C'))
         self.labelTemperatura.pack(side=BOTTOM,pady=10)
-        self.labelSimboloTemperatura = Label(self.widget2,text='°C')
-        self.labelSimboloTemperatura.pack()
         
         
         #Terceiro container (Informações adicionais de temperatura)
@@ -39,16 +38,18 @@ class app():
         self.widget3.pack()
         self.labelCondicao = Label(self.widget3,text=api.clima)
         self.labelCondicao.pack(side=LEFT,pady=10)
-        self.labelIconCondicao = Label(self.widget3,image=api.iconeTemperatura)
+        self.iconLabel = tk.PhotoImage(data=api.iconeTemperatura)
+        self.labelIconCondicao = Label(self.widget3,image=self.iconLabel)
+        self.labelIconCondicao.image = self.iconLabel
         self.labelIconCondicao.pack(side=RIGHT,pady=10)
         
         #Quarto container (Informações adicionais (umidade/sensação termica))
         
         self.widget4 = Frame(master)
         self.widget4.pack()
-        self.labelUmidade = Label(self.widget4,text=api.umidade)
+        self.labelUmidade = Label(self.widget4,text=(api.umidade,'%'))
         self.labelUmidade.pack(side=LEFT,padx=20,pady=10)
-        self.labelSensacao = Label(self.widget4,text=api.sensacaoTermica)
+        self.labelSensacao = Label(self.widget4,text=(round(api.sensacaoTermica,1),'°C'))
         self.labelSensacao.pack(side=RIGHT,padx= 20,pady=10)
         
         
