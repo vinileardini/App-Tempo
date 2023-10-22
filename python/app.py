@@ -3,9 +3,6 @@ from tkinter import ttk
 from PIL import Image
 
 import api
- 
-import sys
-import os
 
 class app():
     
@@ -30,8 +27,10 @@ class app():
         self.widget2.pack()
         self.labelCidade = Label(self.widget2,text=api.nomeCidade,font=('Arial',14))
         self.labelCidade.pack(pady=20)
-        self.labelTemperatura = Label(self.widget2,text=api.temperaturaAtual)
+        self.labelTemperatura = Label(self.widget2,text=round(api.temperaturaAtual,1))
         self.labelTemperatura.pack(side=BOTTOM,pady=10)
+        self.labelSimboloTemperatura = Label(self.widget2,text='°C')
+        self.labelSimboloTemperatura.pack()
         
         
         #Terceiro container (Informações adicionais de temperatura)
@@ -40,7 +39,7 @@ class app():
         self.widget3.pack()
         self.labelCondicao = Label(self.widget3,text=api.clima)
         self.labelCondicao.pack(side=LEFT,pady=10)
-        self.labelIconCondicao = Label(self.widget3,text=api.iconeTemperatura)
+        self.labelIconCondicao = Label(self.widget3,image=api.iconeTemperatura)
         self.labelIconCondicao.pack(side=RIGHT,pady=10)
         
         #Quarto container (Informações adicionais (umidade/sensação termica))
