@@ -19,7 +19,7 @@ class app():
         self.EntryInputLocal.insert(0,'Insira o nome para pesquisa')
         self.EntryInputLocal.config(foreground='#adadac')
         self.lupaPesquisa = PhotoImage(file='img/lupa.png')
-        self.searchButton = Button(self.widget1,image=self.lupaPesquisa,bg='#0394fc')
+        self.searchButton = Button(self.widget1,image=self.lupaPesquisa,bg='#0394fc',command=self.pesquisa)
         self.searchButton.pack(pady=10,side=RIGHT)
         self.searchButton.image = self.lupaPesquisa
         
@@ -51,6 +51,20 @@ class app():
         self.labelUmidade.pack(side=LEFT,padx=20,pady=10)
         self.labelSensacao = Label(self.widget4,text=(round(api.sensacaoTermica,1),'°C'))
         self.labelSensacao.pack(side=RIGHT,padx= 20,pady=10)
+        
+    
+    def resetDefaultSearchText(self):
+        
+        self.EntryInputLocal.insert(1,'')
+    
+    def pesquisa(self):
+        
+        cidadePesquisa = self.EntryInputLocal.get()
+        print(cidadePesquisa)
+        
+        
+        
+        
         
         
 
