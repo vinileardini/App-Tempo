@@ -2,9 +2,12 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image
 import tkinter as tk
+import requests
+from urllib.request import urlopen
+from tkinter.commondialog import Dialog
 
 import api
-import main
+
 
 class app():
     
@@ -49,9 +52,9 @@ class app():
         
         self.widget4 = Frame(master,background='#121212')
         self.widget4.pack()
-        self.labelUmidade = Label(self.widget4,text=(api.umidade,'%'),foreground='#f7f9fc',background='#121212')
+        self.labelUmidade = Label(self.widget4,text=('Umidade:',api.umidade,'%'),foreground='#f7f9fc',background='#121212')
         self.labelUmidade.pack(side=LEFT,padx=20,pady=10)
-        self.labelSensacao = Label(self.widget4,text=(round(api.sensacaoTermica,1),'°C'),foreground='#f7f9fc',background='#121212')
+        self.labelSensacao = Label(self.widget4,text=('Sensação térmica:', round(api.sensacaoTermica,1),'°C'),foreground='#f7f9fc',background='#121212')
         self.labelSensacao.pack(side=RIGHT,padx= 20,pady=10)
         
     
@@ -62,29 +65,50 @@ class app():
     def pesquisa(self):
         
         cidadePesquisa = self.EntryInputLocal.get()
-        main.inputcidade = cidadePesquisa
         
+        print(cidadePesquisa)
+
         arquivo = open(r'C:\Users\Vinícius\Documents\openweatherAPI.txt','r',encoding='utf-8')
-key = arquivo.readline()
- 
-request = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={key}&lang=pt_br')
-info = request.json()
-    
-nomeCidade = info['name']
-pais = info['sys']['country']
-umidade = info['main']['humidity']
-temperaturaAtual = info['main']['temp']-273
-sensacaoTermica = info['main']['feels_like']-273
-clima =  info['weather'][0]['description']
-valorIconeTemperatura = info['weather'][0]['icon']
+        key = arquivo.readline()
+        
+        request = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={cidadePesquisa}&appid={key}&lang=pt_br')
+        info = request.json()
+        
+        print(info)
+        
+        nomeCidade = info['name']
+        pais = info['sys']['country']
+        umidade = info['main']['humidity']
+        temperaturaAtual = info['main']['temp']-273
+        sensacaoTermica = info['main']['feels_like']-273
+        clima =  info['weather'][0]['description']
+        valorIconeTemperatura = info['weather'][0]['icon']
 
-# Modificações para uso do ícone da temperatura
-urlIconeTemperatura = f'https://openweathermap.org/img/wn/{valorIconeTemperatura}.png'
-abreImagem = urlopen(urlIconeTemperatura)
-rawImagem = abreImagem.read()
-abreImagem.close()
+        # Modificações para uso do ícone da temperatura
+        urlIconeTemperatura = f'https://openweathermap.org/img/wn/{valorIconeTemperatura}.png'
+        abreImagem = urlopen(urlIconeTemperatura)
+        rawImagem = abreImagem.read()
+        abreImagem.close()
 
-iconeTemperatura = rawImagem
+        iconeTemperatura = rawImagem
+        
+        
+        #Alterações para mostrar informações da cidade pesquisada
+        
+        
+        
+        self.labelCidade.config(text=(nomeCidade,',',pais))
+        self.labelTemperatura.config(text=(round(temperaturaAtual,1),'°C'))
+        self.labelCondicao.config(text=clima)
+        self.labelSensacao.config(text=('Sensação térmica:',round(sensacaoTermica,1),'°C'))
+        self.iconLabel = tk.PhotoImage(data=iconeTemperatura)
+        self.labelIconCondicao.config(image=self.iconLabel)
+        self.labelUmidade.config(text=('Umidade:',umidade,'%'))
+        
+            
+                
+        
+        
         
         
         

@@ -3,12 +3,12 @@ from urllib.request import urlopen
 import main
 from PIL import Image,ImageTk
 
-
-cidade = main.inputcidade
+        
+cidade = main.inputCidade
 
 arquivo = open(r'C:\Users\Vinícius\Documents\openweatherAPI.txt','r',encoding='utf-8')
 key = arquivo.readline()
- 
+
 request = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={key}&lang=pt_br')
 info = request.json()
     
