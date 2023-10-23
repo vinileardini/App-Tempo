@@ -29,6 +29,8 @@ abreImagem.close()
 iconeTemperatura = rawImagem
 
 
+        
+    
 
 
 

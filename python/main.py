@@ -1,3 +1,3 @@
 
 
-inputcidade = 'boituva'
+inputCidade = 'boituva'
