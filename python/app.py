@@ -106,7 +106,7 @@ class app():
         self.labelCidade.config(text=(nomeCidade,',',pais))
         self.labelTemperatura.config(text=(round(temperaturaAtual,1),'°C'))
         self.labelCondicao.config(text=clima)
-        self.labelSensacao.config(text=('Sensação térmica:',round(sensacaoTermica,1),'°C'))
+        self.labelSensacao.config(text=('Sensação_Térmica:',round(sensacaoTermica,1),'°C'))
         self.iconLabel = tk.PhotoImage(data=iconeTemperatura)
         self.labelIconCondicao.config(image=self.iconLabel)
         self.labelUmidade.config(text=('Umidade:',umidade,'%'))
