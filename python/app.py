@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from PIL import Image
+from PIL import Image, ImageTk
 import tkinter as tk
 import requests
 from urllib.request import urlopen
@@ -20,8 +20,10 @@ class app():
         self.labelTitle.pack()
         self.EntryInputLocal = Entry(self.widget1,width=50)
         self.EntryInputLocal.pack(pady=10,side=LEFT)
-        self.EntryInputLocal.insert(0,'Insira o nome para pesquisa')
         self.EntryInputLocal.config(foreground='#adadac',background='#121212')
+        self.EntryInputLocal.insert(0,'Insira o nome da cidade para pesquisa')
+        self.EntryInputLocal.bind('<Button-1>',self.clickEntry)
+        self.EntryInputLocal.bind('<FocusOut>',self.leaveEntry)
         self.lupaPesquisa = PhotoImage(file='img/lupa.png')
         self.searchButton = Button(self.widget1,image=self.lupaPesquisa,bg='#0394fc',command=self.pesquisa)
         self.searchButton.pack(pady=10,side=RIGHT)
@@ -30,7 +32,7 @@ class app():
         #Segundo container (Nome e temperatura da cidade)
         self.widget2 = Frame(master,background='#121212')
         self.widget2.pack()
-        self.labelCidade = Label(self.widget2,text=api.nomeCidade,font=('Arial',14),foreground='#f7f9fc',background='#121212')
+        self.labelCidade = Label(self.widget2,text=(api.nomeCidade,',',api.pais),font=('Arial',14),foreground='#f7f9fc',background='#121212')
         self.labelCidade.pack(pady=20)
         self.labelTemperatura = Label(self.widget2,text=(round(api.temperaturaAtual,1),'°C'),foreground='#f7f9fc',background='#121212')
         self.labelTemperatura.pack(side=BOTTOM,pady=10)
@@ -54,13 +56,19 @@ class app():
         self.widget4.pack()
         self.labelUmidade = Label(self.widget4,text=('Umidade:',api.umidade,'%'),foreground='#f7f9fc',background='#121212')
         self.labelUmidade.pack(side=LEFT,padx=20,pady=10)
-        self.labelSensacao = Label(self.widget4,text=('Sensação térmica:', round(api.sensacaoTermica,1),'°C'),foreground='#f7f9fc',background='#121212')
+        self.labelSensacao = Label(self.widget4,text=('Sensação_Térmica:', round(api.sensacaoTermica,1),'°C'),foreground='#f7f9fc',background='#121212')
         self.labelSensacao.pack(side=RIGHT,padx= 20,pady=10)
+
+    def clickEntry(self,*args):
         
+        self.EntryInputLocal.delete(0,'end')
     
-    def resetDefaultSearchText(self):
+    def leaveEntry(self,*args):
         
-        self.EntryInputLocal.insert(1,'')
+        self.EntryInputLocal.insert(0,'Insira o nome da cidade para pesquisa')
+        
+        
+        
     
     def pesquisa(self):
         
@@ -95,8 +103,6 @@ class app():
         
         #Alterações para mostrar informações da cidade pesquisada
         
-        
-        
         self.labelCidade.config(text=(nomeCidade,',',pais))
         self.labelTemperatura.config(text=(round(temperaturaAtual,1),'°C'))
         self.labelCondicao.config(text=clima)
@@ -114,14 +120,14 @@ class app():
         
         
         
-        
-        
-        
-
 
 root = Tk()
 root.config(background='#121212')
 root.minsize(700,350)
 root.maxsize(700,350)
+Imgicone = Image.open("E:\App Tempo\img\icon.png")
+icone = ImageTk.PhotoImage(Imgicone)
+root.wm_iconphoto(False,icone)
+root.title("Previsão do tempo")
 app(root)
 root.mainloop()
